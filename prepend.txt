@@ -13,7 +13,7 @@
 #define ts_show_status_leds false
 
 
-#define FUEL_RPM_COUNT 24
-#define FUEL_LOAD_COUNT 24
-#define IGN_LOAD_COUNT 24
-#define IGN_RPM_COUNT 24
+#define FUEL_RPM_COUNT 32
+#define FUEL_LOAD_COUNT 32
+#define IGN_LOAD_COUNT 18
+#define IGN_RPM_COUNT 18
