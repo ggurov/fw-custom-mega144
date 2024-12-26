@@ -15,5 +15,5 @@
 
 #define FUEL_RPM_COUNT 32
 #define FUEL_LOAD_COUNT 32
-#define IGN_LOAD_COUNT 18
-#define IGN_RPM_COUNT 18
+#define IGN_LOAD_COUNT 32
+#define IGN_RPM_COUNT 32
