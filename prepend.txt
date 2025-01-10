@@ -16,3 +16,5 @@
 #define FUEL_LOAD_COUNT 80
 #define IGN_LOAD_COUNT 32
 #define IGN_RPM_COUNT 32
+
+#define GPPWM_CHANNELS 20
