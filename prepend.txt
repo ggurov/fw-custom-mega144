@@ -18,3 +18,8 @@
 #define IGN_RPM_COUNT 20
 
 #define GPPWM_CHANNELS 8
+
+#define GPPWM_5_NAME "General Purpose PWM 5"
+#define GPPWM_6_NAME "General Purpose PWM 6"
+#define GPPWM_7_NAME "General Purpose PWM 7"
+#define GPPWM_8_NAME "General Purpose PWM 8"
