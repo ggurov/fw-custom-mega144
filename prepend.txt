@@ -11,3 +11,8 @@
 
 ! board has zero LEDs
 #define ts_show_status_leds false
+
+#define FUEL_RPM_COUNT 24
+#define FUEL_LOAD_COUNT 24
+#define IGN_LOAD_COUNT 24
+#define IGN_RPM_COUNT 24
