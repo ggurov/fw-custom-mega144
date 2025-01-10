@@ -17,4 +17,4 @@
 #define IGN_LOAD_COUNT 32
 #define IGN_RPM_COUNT 32
 
-#define GPPWM_CHANNELS 10
+#define GPPWM_CHANNELS 8
