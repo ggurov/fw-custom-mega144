@@ -1,0 +1,1970 @@
+cmake_minimum_required(VERSION 3.30)
+project(fw_custom_mega144)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(ext/rusefi/firmware)
+include_directories(ext/rusefi/firmware/config/boards)
+include_directories(ext/rusefi/firmware/config/boards/cypress/config/controllers/algo)
+include_directories(ext/rusefi/firmware/config/boards/cypress/config/controllers/generated)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/startup)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/startup/ARMCMx)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/startup/ARMCMx/devices)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/common/startup/ARMCMx/devices/S6E2CxAH)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/ADCv2)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/CANv2)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/GPIOv2)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/PITv2)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/SPIv2)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/adc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/bt)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/clk)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/cr)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/crc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/csv)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dac)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dma)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dstc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dt)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/exint)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/extif)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/gpio)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/hbif)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/hsspi)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/i2cs)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/i2s)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/icc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lcd)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lpm)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lvd)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mfs)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/pcrc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/ppg)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/qprc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/rc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/reset)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/rtc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sd)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sdif)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/uid)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/vbat)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wc)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wdg)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/mfs)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/sd)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device)
+include_directories(ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/S6E2CxAH)
+include_directories(ext/rusefi/firmware/config/boards/f407-discovery)
+include_directories(ext/rusefi/firmware/config/boards/f429-208)
+include_directories(ext/rusefi/firmware/config/boards/f429-discovery)
+include_directories(ext/rusefi/firmware/config/boards/frankenso_na6/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-2chan)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-2chan/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-4chan)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-4chan/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-4K-GDI)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-4K-GDI/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-8chan)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-8chan/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/alphax-silver/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-112-17)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-112-17/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-gm-e38)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-gm-e67)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-gm-e67/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-honda-k)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen-honda-k/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen121nissan)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen121nissan/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen121vag)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen121vag/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen128)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen128/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen154hyundai)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen154hyundai/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen154hyundai_f7)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen154hyundai_f7/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen81/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen88bmw)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellen88bmw/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNA6)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNA6/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNA96)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNA96/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNB1)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNB1/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNB2)
+include_directories(ext/rusefi/firmware/config/boards/hellen/hellenMiataNB2/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/small-can-board/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/uaefi)
+include_directories(ext/rusefi/firmware/config/boards/hellen/uaefi/connectors)
+include_directories(ext/rusefi/firmware/config/boards/hellen/uaefi121)
+include_directories(ext/rusefi/firmware/config/boards/hellen/uaefi121/connectors)
+include_directories(ext/rusefi/firmware/config/boards/kinetis)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/config/controllers/algo)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/config/controllers/generated)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/ext)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/ext/CMSIS)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/ext/CMSIS/KINETIS)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/startup)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/startup/ARMCMx)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/startup/ARMCMx/devices)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/common/startup/ARMCMx/devices/KE1xF)
+include_directories(ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl)
+include_directories(ext/rusefi/firmware/config/boards/m74_9/connectors)
+include_directories(ext/rusefi/firmware/config/boards/microrusefi)
+include_directories(ext/rusefi/firmware/config/boards/microrusefi/connectors)
+include_directories(ext/rusefi/firmware/config/boards/prometheus)
+include_directories(ext/rusefi/firmware/config/boards/proteus)
+include_directories(ext/rusefi/firmware/config/boards/proteus/connectors)
+include_directories(ext/rusefi/firmware/config/boards/s105)
+include_directories(ext/rusefi/firmware/config/boards/s105/connectors)
+include_directories(ext/rusefi/firmware/config/boards/subaru_eg33)
+include_directories(ext/rusefi/firmware/config/boards/subaru_eg33/connectors)
+include_directories(ext/rusefi/firmware/config/boards/tdg-pdm8/connectors)
+include_directories(ext/rusefi/firmware/config/engines)
+include_directories(ext/rusefi/firmware/config/engines/mazda)
+include_directories(ext/rusefi/firmware/config/stm32f4ems)
+include_directories(ext/rusefi/firmware/config/stm32f7ems)
+include_directories(ext/rusefi/firmware/config/stm32h7ems)
+include_directories(ext/rusefi/firmware/controllers)
+include_directories(ext/rusefi/firmware/controllers/actuators)
+include_directories(ext/rusefi/firmware/controllers/actuators/gppwm)
+include_directories(ext/rusefi/firmware/controllers/algo)
+include_directories(ext/rusefi/firmware/controllers/algo/airmass)
+include_directories(ext/rusefi/firmware/controllers/algo/defaults)
+include_directories(ext/rusefi/firmware/controllers/algo/fuel)
+include_directories(ext/rusefi/firmware/controllers/algo/ignition)
+include_directories(ext/rusefi/firmware/controllers/can)
+include_directories(ext/rusefi/firmware/controllers/core)
+include_directories(ext/rusefi/firmware/controllers/engine_cycle)
+include_directories(ext/rusefi/firmware/controllers/gauges)
+include_directories(ext/rusefi/firmware/controllers/generated)
+include_directories(ext/rusefi/firmware/controllers/lua)
+include_directories(ext/rusefi/firmware/controllers/lua/luaaa)
+include_directories(ext/rusefi/firmware/controllers/math)
+include_directories(ext/rusefi/firmware/controllers/sensors)
+include_directories(ext/rusefi/firmware/controllers/sensors/converters)
+include_directories(ext/rusefi/firmware/controllers/sensors/core)
+include_directories(ext/rusefi/firmware/controllers/sensors/impl)
+include_directories(ext/rusefi/firmware/controllers/sensors/impl/fft)
+include_directories(ext/rusefi/firmware/controllers/system)
+include_directories(ext/rusefi/firmware/controllers/system/timer)
+include_directories(ext/rusefi/firmware/controllers/tcu)
+include_directories(ext/rusefi/firmware/controllers/trigger)
+include_directories(ext/rusefi/firmware/controllers/trigger/decoders)
+include_directories(ext/rusefi/firmware/development)
+include_directories(ext/rusefi/firmware/development/hw_layer)
+include_directories(ext/rusefi/firmware/development/test)
+include_directories(ext/rusefi/firmware/ext_algo)
+include_directories(ext/rusefi/firmware/hw_layer)
+include_directories(ext/rusefi/firmware/hw_layer/adc)
+include_directories(ext/rusefi/firmware/hw_layer/algo)
+include_directories(ext/rusefi/firmware/hw_layer/atwinc1500)
+include_directories(ext/rusefi/firmware/hw_layer/digital_input)
+include_directories(ext/rusefi/firmware/hw_layer/digital_input/trigger)
+include_directories(ext/rusefi/firmware/hw_layer/drivers)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/can)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/flash/sst26f)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/flash/w25q)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/gpio)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/i2c)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/led)
+include_directories(ext/rusefi/firmware/hw_layer/drivers/sent)
+include_directories(ext/rusefi/firmware/hw_layer/mass_storage)
+include_directories(ext/rusefi/firmware/hw_layer/microsecond_timer)
+include_directories(ext/rusefi/firmware/hw_layer/openblt)
+include_directories(ext/rusefi/firmware/hw_layer/ports)
+include_directories(ext/rusefi/firmware/hw_layer/ports/at32/at32f4/cfg)
+include_directories(ext/rusefi/firmware/hw_layer/ports/at32/cfg)
+include_directories(ext/rusefi/firmware/hw_layer/ports/cypress)
+include_directories(ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb)
+include_directories(ext/rusefi/firmware/hw_layer/ports/kinetis)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/cfg)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/serial_over_usb)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/cfg)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/openblt/lib)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/cfg)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/openblt/lib)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7)
+include_directories(ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/cfg)
+include_directories(ext/rusefi/firmware/hw_layer/sensors)
+include_directories(ext/rusefi/firmware/init)
+include_directories(ext/rusefi/firmware/libfirmware/board_id)
+include_directories(ext/rusefi/firmware/libfirmware/can)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/custom)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/custom)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src)
+include_directories(ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test)
+include_directories(ext/rusefi/firmware/libfirmware/pt2001/include/rusefi)
+include_directories(ext/rusefi/firmware/libfirmware/pt2001/project/rusefi/sample_code)
+include_directories(ext/rusefi/firmware/libfirmware/sent/include)
+include_directories(ext/rusefi/firmware/libfirmware/sent/src)
+include_directories(ext/rusefi/firmware/libfirmware/stm32-util)
+include_directories(ext/rusefi/firmware/libfirmware/util/include)
+include_directories(ext/rusefi/firmware/libfirmware/util/include/rusefi)
+include_directories(ext/rusefi/firmware/libfirmware/util/include/rusefi/containers)
+include_directories(ext/rusefi/firmware/live_data_generated)
+include_directories(ext/rusefi/firmware/pch)
+include_directories(ext/rusefi/firmware/util)
+include_directories(ext/rusefi/firmware/util/containers)
+include_directories(ext/rusefi/firmware/util/math)
+include_directories(generated)
+include_directories(generated/console)
+include_directories(generated/console/binary)
+include_directories(generated/console/binary/generated)
+include_directories(generated/console/binary_log)
+include_directories(generated/controllers)
+include_directories(generated/controllers/actuators)
+include_directories(generated/controllers/algo)
+include_directories(generated/controllers/algo/fuel)
+include_directories(generated/controllers/engine_cycle)
+include_directories(generated/controllers/generated)
+include_directories(generated/controllers/math)
+include_directories(generated/controllers/sensors)
+include_directories(generated/controllers/tcu)
+include_directories(generated/controllers/trigger)
+include_directories(generated/live_data_generated)
+
+add_executable(fw_custom_mega144
+    ext/rusefi/firmware/config/boards/at_start_f435/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/at_start_f435/board_storage.cpp
+    ext/rusefi/firmware/config/boards/atlas/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/cypress/config/controllers/algo/auto_generated_enums.cpp
+    ext/rusefi/firmware/config/boards/cypress/config/controllers/algo/auto_generated_enums.h
+    ext/rusefi/firmware/config/boards/cypress/config/controllers/generated/rusefi_generated_cypress.h
+    ext/rusefi/firmware/config/boards/cypress/config/controllers/generated/signature_cypress.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH/base_types.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH/chibios_pdl_vectors.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH/mcu.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH/s6e2c5xh.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH/s6e2c5xl.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/ext/CMSIS/S6E2CxAH/system_s6e2c5.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/common/startup/ARMCMx/devices/S6E2CxAH/cmparams.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/ADCv2/hal_adc_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/ADCv2/hal_adc_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/CANv2/hal_can_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/CANv2/hal_can_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/GPIOv2/gpio_s6e2_common.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/GPIOv2/hal_pal_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/GPIOv2/hal_pal_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/PITv2/hal_gpt_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/PITv2/hal_gpt_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/PITv2/hal_st_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/PITv2/hal_st_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/SPIv2/hal_spi_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/LLD/SPIv2/hal_spi_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/adc/adc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/adc/adc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/bt/bt.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/bt/bt.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can/can.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can/can.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can/can_pre.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can/can_pre.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can/canfd.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/can/canfd.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/clk/clk.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/clk/clk.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/cr/cr.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/cr/cr.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/crc/crc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/crc/crc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/csv/csv.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/csv/csv.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dac/dac.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dac/dac.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dma/dma.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dma/dma.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dstc/dstc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dstc/dstc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dt/dt.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/dt/dt.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/exint/exint.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/exint/exint.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/extif/extif.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/extif/extif.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash/dualflash.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash/dualflash.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash/mainflash.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash/mainflash.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash/workflash.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/flash/workflash.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/gpio/fgpio.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/gpio/gpio.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/gpio/gpio_s6e2c5xh.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/gpio/gpio_s6e2c5xl.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/hbif/hbif.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/hbif/hbif.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/hsspi/hsspi.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/hsspi/hsspi.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/i2cs/i2cs.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/i2cs/i2cs.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/i2s/i2s.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/i2s/i2s.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/icc/icc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/icc/icc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lcd/lcd.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lcd/lcd.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lpm/lpm.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lpm/lpm.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lvd/lvd.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/lvd/lvd.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mfs/mfs.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mfs/mfs.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_adcmp.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_adcmp.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_frt.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_frt.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_icu.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_icu.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_ocu.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_ocu.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_wfg.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/mft/mft_wfg.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/pcrc/pcrc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/pcrc/pcrc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/ppg/ppg.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/ppg/ppg.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/qprc/qprc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/qprc/qprc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/rc/rc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/rc/rc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/reset/reset.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/reset/reset.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/rtc/rtc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/rtc/rtc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sd/debug.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sd/sd.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sd/sd.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sd/sd_cfg.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sdif/sdif.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/sdif/sdif.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/uid/uid.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/uid/uid.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usb.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usb.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbdevice.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbdevice.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbethernetclock.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbethernetclock.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbethernetclocklegacy.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbhost.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usbhost.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/usb/usblegacy.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/vbat/vbat.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/vbat/vbat.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wc/wc.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wc/wc.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wdg/hwwdg.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wdg/hwwdg.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wdg/swwdg.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wdg/swwdg.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/wdg/wdg.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/base_types.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/description.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm0p.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm0p_type_1-a.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm0p_type_1-b.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm0p_type_2-a.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm0p_type_2-b.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm0p_type_3.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm3.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm3_type_a.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm3_type_b.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm3_type_c.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm4.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm4_type_a.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm4_type_b.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/interrupts_fm4_type_c.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/pdl.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/pdl.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/driver/pdl_header.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/mfs/mfs_hl.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/mfs/mfs_hl.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/sd/sdcard.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/sd/sdcard.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/sd/sdcmd.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/highlevel/sd/sdcmd.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceCdcCom.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceCdcCom.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceCmsisDap.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceCmsisDap.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidCom.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidCom.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidJoystick.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidJoystick.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidKeyboard.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidKeyboard.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidMouse.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceHidMouse.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceLibUsb.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceLibUsb.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceMassStorage.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDeviceMassStorage.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDevicePrinter.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/PDL/midware/usb/device/UsbDevicePrinter.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/S6E2CxAH/cypress_stm32.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/S6E2CxAH/hal_lld.c
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/S6E2CxAH/hal_lld.h
+    ext/rusefi/firmware/config/boards/cypress/OS/os/hal/ports/Cypress/S6E2CxAH/system_s6e2c5.c
+    ext/rusefi/firmware/config/boards/cypress/board.c
+    ext/rusefi/firmware/config/boards/cypress/board.h
+    ext/rusefi/firmware/config/boards/cypress/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/cypress/chconf.h
+    ext/rusefi/firmware/config/boards/cypress/efifeatures.h
+    ext/rusefi/firmware/config/boards/cypress/halconf.h
+    ext/rusefi/firmware/config/boards/cypress/halconf_community.h
+    ext/rusefi/firmware/config/boards/cypress/mcuconf.h
+    ext/rusefi/firmware/config/boards/cypress/pdl_user.h
+    ext/rusefi/firmware/config/boards/cypress/rusefi_hw_enums.h
+    ext/rusefi/firmware/config/boards/f407-discovery/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/f407-discovery/knock_config.h
+    ext/rusefi/firmware/config/boards/f429-208/board.c
+    ext/rusefi/firmware/config/boards/f429-208/board.h
+    ext/rusefi/firmware/config/boards/f429-208/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/f429-discovery/board.c
+    ext/rusefi/firmware/config/boards/f429-discovery/board.h
+    ext/rusefi/firmware/config/boards/f429-discovery/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/frankenso_na6/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/frankenso_na6/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-2chan/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-2chan/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-2chan/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-2chan/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-2chan/trigger_scope_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-4chan/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-4chan/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-4chan/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-4chan/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-4chan/trigger_scope_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-4K-GDI/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-4K-GDI/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-4K-GDI/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-4K-GDI/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan/trigger_scope_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-8chan-revA/trigger_scope_config.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-silver/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/alphax-silver/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/alphax-silver/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-112-17/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen-112-17/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-112-17/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-112-17/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen-gm-e38/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen-gm-e67/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen-gm-e67/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-gm-e67/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-gm-e67/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen-honda-k/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen-honda-k/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-honda-k/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen-honda-k/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen121nissan/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen121nissan/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen121nissan/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen121nissan/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen121vag/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen121vag/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen121vag/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen121vag/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen128/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen128/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen128/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen128/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai_f7/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai_f7/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai_f7/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen154hyundai_f7/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen81/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen81/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen81/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen88bmw/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellen88bmw/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen88bmw/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen88bmw/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA6/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA6/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA6/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA6/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA96/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA96/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA96/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNA96/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB1/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB1/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB1/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB1/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB2/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB2/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB2/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellenMiataNB2/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/small-can-board/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/small-can-board/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/small-can-board/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/uaefi/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/uaefi/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/uaefi/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/hellen/uaefi/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/uaefi121/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/hellen/uaefi121/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/hellen/uaefi121/board_configuration_uaefi121.cpp
+    ext/rusefi/firmware/config/boards/hellen/uaefi121/knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen_board_id.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen_board_id.h
+    ext/rusefi/firmware/config/boards/hellen/hellen_board_id_resistors.h
+    ext/rusefi/firmware/config/boards/hellen/hellen_common.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen_knock_config.h
+    ext/rusefi/firmware/config/boards/hellen/hellen_leds_100.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen_leds_144.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen_leds_176.cpp
+    ext/rusefi/firmware/config/boards/hellen/hellen_leds_64.cpp
+    ext/rusefi/firmware/config/boards/hellen/pca_board_id.h
+    ext/rusefi/firmware/config/boards/kinetis/config/controllers/algo/auto_generated_enums.cpp
+    ext/rusefi/firmware/config/boards/kinetis/config/controllers/algo/auto_generated_enums.h
+    ext/rusefi/firmware/config/boards/kinetis/config/controllers/generated/rusefi_generated_kin.h
+    ext/rusefi/firmware/config/boards/kinetis/config/controllers/generated/signature_kin.h
+    ext/rusefi/firmware/config/boards/kinetis/libc/libc_stub.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/common/ext/CMSIS/KINETIS/MKE16F16.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/common/ext/CMSIS/KINETIS/MKE16F16_features.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/common/ext/CMSIS/KINETIS/system_MKE16F16.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/common/startup/ARMCMx/devices/KE1xF/cmparams.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_acmp.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_acmp.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_adc12.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_adc12.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_clock.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_clock.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_common.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_device_registers.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_dmamux.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_dmamux.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_edma.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_edma.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_adapter.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_controller.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_controller.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_features.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_flexnvm.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_flexnvm.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_ftfx_utilities.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpspi.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpspi.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpspi_edma.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpspi_edma.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpuart.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpuart.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpuart_edma.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_lpuart_edma.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_port.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_smc.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/fsl/fsl_smc.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/clock_config.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/clock_config.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/hal_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/hal_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/kinetis_irq.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/kinetis_registry.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/KE1xF/kinetis_stm32.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/ADCv2/hal_adc_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/ADCv2/hal_adc_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/COMPv2/hal_comp_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/COMPv2/hal_comp_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/DMAv2/kinetis_dma.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/DMAv2/kinetis_dma.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/FTMv2/hal_pwm_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/FTMv2/hal_pwm_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/GPIOv2/hal_pal_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/GPIOv2/hal_pal_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/PITv2/hal_gpt_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/PITv2/hal_gpt_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/PITv2/hal_st_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/PITv2/hal_st_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/SPIv2/hal_spi_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/SPIv2/hal_spi_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/UARTv2/hal_uart_lld.c
+    ext/rusefi/firmware/config/boards/kinetis/OS/os/hal/ports/KINETIS/LLD/UARTv2/hal_uart_lld.h
+    ext/rusefi/firmware/config/boards/kinetis/board.c
+    ext/rusefi/firmware/config/boards/kinetis/board.h
+    ext/rusefi/firmware/config/boards/kinetis/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/kinetis/chconf.h
+    ext/rusefi/firmware/config/boards/kinetis/efifeatures.h
+    ext/rusefi/firmware/config/boards/kinetis/halconf.h
+    ext/rusefi/firmware/config/boards/kinetis/halconf_community.h
+    ext/rusefi/firmware/config/boards/kinetis/mcuconf.h
+    ext/rusefi/firmware/config/boards/kinetis/rusefi_hw_enums.h
+    ext/rusefi/firmware/config/boards/m74_9/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/m74_9/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/m74_9/board.c
+    ext/rusefi/firmware/config/boards/m74_9/board.h
+    ext/rusefi/firmware/config/boards/m74_9/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/m74_9/efifeatures.h
+    ext/rusefi/firmware/config/boards/microrusefi/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/microrusefi/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/microrusefi/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/microrusefi/board_storage.cpp
+    ext/rusefi/firmware/config/boards/microrusefi/knock_config.h
+    ext/rusefi/firmware/config/boards/nucleo_f429/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/nucleo_h743/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/prometheus/board.h
+    ext/rusefi/firmware/config/boards/prometheus/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/prometheus/board_extra.c
+    ext/rusefi/firmware/config/boards/prometheus/efifeatures.h
+    ext/rusefi/firmware/config/boards/prometheus/halconf.h
+    ext/rusefi/firmware/config/boards/prometheus/mcuconf.h
+    ext/rusefi/firmware/config/boards/proteus/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/proteus/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/proteus/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/proteus/knock_config.h
+    ext/rusefi/firmware/config/boards/s105/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/s105/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/s105/board.c
+    ext/rusefi/firmware/config/boards/s105/board.h
+    ext/rusefi/firmware/config/boards/s105/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/s105/efifeatures.h
+    ext/rusefi/firmware/config/boards/subaru_eg33/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/subaru_eg33/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/subaru_eg33/board.c
+    ext/rusefi/firmware/config/boards/subaru_eg33/board.h
+    ext/rusefi/firmware/config/boards/subaru_eg33/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/subaru_eg33/board_io.h
+    ext/rusefi/firmware/config/boards/subaru_eg33/board_storage.cpp
+    ext/rusefi/firmware/config/boards/subaru_eg33/efifeatures.h
+    ext/rusefi/firmware/config/boards/subaru_eg33/halconf.h
+    ext/rusefi/firmware/config/boards/subaru_eg33/mcuconf.h
+    ext/rusefi/firmware/config/boards/tdg-pdm8/connectors/generated_outputs.h
+    ext/rusefi/firmware/config/boards/tdg-pdm8/connectors/generated_ts_name_by_pin.cpp
+    ext/rusefi/firmware/config/boards/tdg-pdm8/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/test-build-guards/board_configuration.cpp
+    ext/rusefi/firmware/config/boards/board_id.cpp
+    ext/rusefi/firmware/config/boards/board_id.h
+    ext/rusefi/firmware/config/boards/hellen_meta.h
+    ext/rusefi/firmware/config/boards/hellen_mm100_meta.h
+    ext/rusefi/firmware/config/boards/hellen_mm176_meta.h
+    ext/rusefi/firmware/config/boards/hellen_mm64_meta.h
+    ext/rusefi/firmware/config/boards/mre_meta.h
+    ext/rusefi/firmware/config/boards/proteus_meta.h
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata.cpp
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata.h
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_1_6.cpp
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_1_6.h
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_base_maps.cpp
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_base_maps.h
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_na8.cpp
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_na8.h
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_vvt.cpp
+    ext/rusefi/firmware/config/engines/mazda/mazda_miata_vvt.h
+    ext/rusefi/firmware/config/engines/bmw_m52.cpp
+    ext/rusefi/firmware/config/engines/bmw_m52.h
+    ext/rusefi/firmware/config/engines/bmw_m73.cpp
+    ext/rusefi/firmware/config/engines/bmw_m73.h
+    ext/rusefi/firmware/config/engines/bmw_m73_mre.cpp
+    ext/rusefi/firmware/config/engines/canam.cpp
+    ext/rusefi/firmware/config/engines/canam.h
+    ext/rusefi/firmware/config/engines/canam_canned.cpp
+    ext/rusefi/firmware/config/engines/custom_engine.cpp
+    ext/rusefi/firmware/config/engines/custom_engine.h
+    ext/rusefi/firmware/config/engines/dodge_neon.cpp
+    ext/rusefi/firmware/config/engines/dodge_neon.h
+    ext/rusefi/firmware/config/engines/dodge_ram.cpp
+    ext/rusefi/firmware/config/engines/dodge_ram.h
+    ext/rusefi/firmware/config/engines/engine_template.cpp
+    ext/rusefi/firmware/config/engines/engine_template.h
+    ext/rusefi/firmware/config/engines/f136.cpp
+    ext/rusefi/firmware/config/engines/f136.h
+    ext/rusefi/firmware/config/engines/ford_1995_inline_6.cpp
+    ext/rusefi/firmware/config/engines/ford_1995_inline_6.h
+    ext/rusefi/firmware/config/engines/ford_aspire.cpp
+    ext/rusefi/firmware/config/engines/ford_aspire.h
+    ext/rusefi/firmware/config/engines/ford_festiva.cpp
+    ext/rusefi/firmware/config/engines/ford_festiva.h
+    ext/rusefi/firmware/config/engines/gm_ls_4.cpp
+    ext/rusefi/firmware/config/engines/gm_ls_4.h
+    ext/rusefi/firmware/config/engines/gm_sbc.cpp
+    ext/rusefi/firmware/config/engines/gm_sbc.h
+    ext/rusefi/firmware/config/engines/GY6_139QMB.cpp
+    ext/rusefi/firmware/config/engines/GY6_139QMB.h
+    ext/rusefi/firmware/config/engines/harley.cpp
+    ext/rusefi/firmware/config/engines/harley.h
+    ext/rusefi/firmware/config/engines/harley_canned.cpp
+    ext/rusefi/firmware/config/engines/honda.cpp
+    ext/rusefi/firmware/config/engines/honda.h
+    ext/rusefi/firmware/config/engines/honda_600.cpp
+    ext/rusefi/firmware/config/engines/honda_600.h
+    ext/rusefi/firmware/config/engines/honda_k_dbc.cpp
+    ext/rusefi/firmware/config/engines/honda_k_dbc.h
+    ext/rusefi/firmware/config/engines/honda_obd1.cpp
+    ext/rusefi/firmware/config/engines/honda_obd1.h
+    ext/rusefi/firmware/config/engines/honda_obd1_canned_tables.cpp
+    ext/rusefi/firmware/config/engines/hyundai.cpp
+    ext/rusefi/firmware/config/engines/hyundai.h
+    ext/rusefi/firmware/config/engines/hyundai_coupe_canned_tables.cpp
+    ext/rusefi/firmware/config/engines/hyundai_pb_canned.cpp
+    ext/rusefi/firmware/config/engines/hyundai_pb_canned_tables.cpp
+    ext/rusefi/firmware/config/engines/m111.cpp
+    ext/rusefi/firmware/config/engines/m111.h
+    ext/rusefi/firmware/config/engines/mercedes.cpp
+    ext/rusefi/firmware/config/engines/mercedes.h
+    ext/rusefi/firmware/config/engines/mitsubishi_3A92.cpp
+    ext/rusefi/firmware/config/engines/mitsubishi_3A92.h
+    ext/rusefi/firmware/config/engines/mitsubishi_4G93.cpp
+    ext/rusefi/firmware/config/engines/mitsubishi_4G93.h
+    ext/rusefi/firmware/config/engines/nissan_primera.cpp
+    ext/rusefi/firmware/config/engines/nissan_primera.h
+    ext/rusefi/firmware/config/engines/nissan_vq.cpp
+    ext/rusefi/firmware/config/engines/nissan_vq.h
+    ext/rusefi/firmware/config/engines/sachs.cpp
+    ext/rusefi/firmware/config/engines/sachs.h
+    ext/rusefi/firmware/config/engines/slingshot.cpp
+    ext/rusefi/firmware/config/engines/slingshot.h
+    ext/rusefi/firmware/config/engines/subaru.cpp
+    ext/rusefi/firmware/config/engines/subaru.h
+    ext/rusefi/firmware/config/engines/test_engine.cpp
+    ext/rusefi/firmware/config/engines/test_engine.h
+    ext/rusefi/firmware/config/engines/toyota_1NZ_FE.cpp
+    ext/rusefi/firmware/config/engines/toyota_1NZ_FE.h
+    ext/rusefi/firmware/config/engines/toyota_jz.cpp
+    ext/rusefi/firmware/config/engines/toyota_jz.h
+    ext/rusefi/firmware/config/engines/vw.cpp
+    ext/rusefi/firmware/config/engines/vw.h
+    ext/rusefi/firmware/config/engines/vw_b6.cpp
+    ext/rusefi/firmware/config/engines/vw_b6.h
+    ext/rusefi/firmware/config/stm32f4ems/efifeatures.h
+    ext/rusefi/firmware/config/stm32f7ems/efifeatures.h
+    ext/rusefi/firmware/config/stm32h7ems/efifeatures.h
+    ext/rusefi/firmware/controllers/actuators/gppwm/gppwm.cpp
+    ext/rusefi/firmware/controllers/actuators/gppwm/gppwm.h
+    ext/rusefi/firmware/controllers/actuators/gppwm/gppwm_channel.cpp
+    ext/rusefi/firmware/controllers/actuators/gppwm/gppwm_channel.h
+    ext/rusefi/firmware/controllers/actuators/ac_control.cpp
+    ext/rusefi/firmware/controllers/actuators/ac_control.h
+    ext/rusefi/firmware/controllers/actuators/alternator_controller.cpp
+    ext/rusefi/firmware/controllers/actuators/alternator_controller.h
+    ext/rusefi/firmware/controllers/actuators/boost_control.cpp
+    ext/rusefi/firmware/controllers/actuators/boost_control.h
+    ext/rusefi/firmware/controllers/actuators/dc_motors.cpp
+    ext/rusefi/firmware/controllers/actuators/dc_motors.h
+    ext/rusefi/firmware/controllers/actuators/electronic_throttle.cpp
+    ext/rusefi/firmware/controllers/actuators/electronic_throttle.h
+    ext/rusefi/firmware/controllers/actuators/electronic_throttle_impl.h
+    ext/rusefi/firmware/controllers/actuators/fan_control.cpp
+    ext/rusefi/firmware/controllers/actuators/fan_control.h
+    ext/rusefi/firmware/controllers/actuators/fuel_pump.cpp
+    ext/rusefi/firmware/controllers/actuators/fuel_pump.h
+    ext/rusefi/firmware/controllers/actuators/gppwm_channel_reader.cpp
+    ext/rusefi/firmware/controllers/actuators/gppwm_channel_reader.h
+    ext/rusefi/firmware/controllers/actuators/harley_acr.cpp
+    ext/rusefi/firmware/controllers/actuators/harley_acr.h
+    ext/rusefi/firmware/controllers/actuators/idle_hardware.cpp
+    ext/rusefi/firmware/controllers/actuators/idle_hardware.h
+    ext/rusefi/firmware/controllers/actuators/idle_thread.cpp
+    ext/rusefi/firmware/controllers/actuators/idle_thread.h
+    ext/rusefi/firmware/controllers/actuators/idle_thread_io.cpp
+    ext/rusefi/firmware/controllers/actuators/main_relay.cpp
+    ext/rusefi/firmware/controllers/actuators/main_relay.h
+    ext/rusefi/firmware/controllers/actuators/vvt.cpp
+    ext/rusefi/firmware/controllers/actuators/vvt.h
+    ext/rusefi/firmware/controllers/algo/airmass/airmass.cpp
+    ext/rusefi/firmware/controllers/algo/airmass/airmass.h
+    ext/rusefi/firmware/controllers/algo/airmass/alphan_airmass.cpp
+    ext/rusefi/firmware/controllers/algo/airmass/alphan_airmass.h
+    ext/rusefi/firmware/controllers/algo/airmass/lua_airmass.h
+    ext/rusefi/firmware/controllers/algo/airmass/maf_airmass.cpp
+    ext/rusefi/firmware/controllers/algo/airmass/maf_airmass.h
+    ext/rusefi/firmware/controllers/algo/airmass/speed_density_airmass.cpp
+    ext/rusefi/firmware/controllers/algo/airmass/speed_density_airmass.h
+    ext/rusefi/firmware/controllers/algo/airmass/speed_density_base.cpp
+    ext/rusefi/firmware/controllers/algo/airmass/speed_density_base.h
+    ext/rusefi/firmware/controllers/algo/defaults/default_base_engine.cpp
+    ext/rusefi/firmware/controllers/algo/defaults/default_cranking.cpp
+    ext/rusefi/firmware/controllers/algo/defaults/default_fuel.cpp
+    ext/rusefi/firmware/controllers/algo/defaults/default_ignition.cpp
+    ext/rusefi/firmware/controllers/algo/defaults/defaults.h
+    ext/rusefi/firmware/controllers/algo/fuel/batt_lag_corr_curve.h
+    ext/rusefi/firmware/controllers/algo/fuel/dfco.cpp
+    ext/rusefi/firmware/controllers/algo/fuel/dfco.h
+    ext/rusefi/firmware/controllers/algo/fuel/fuel_computer.cpp
+    ext/rusefi/firmware/controllers/algo/fuel/fuel_computer.h
+    ext/rusefi/firmware/controllers/algo/fuel/injector_model.cpp
+    ext/rusefi/firmware/controllers/algo/fuel/injector_model.h
+    ext/rusefi/firmware/controllers/algo/ignition/ignition_state.cpp
+    ext/rusefi/firmware/controllers/algo/ignition/ignition_state.h
+    ext/rusefi/firmware/controllers/algo/accel_enrichment.cpp
+    ext/rusefi/firmware/controllers/algo/accel_enrichment.h
+    ext/rusefi/firmware/controllers/algo/advance_map.h
+    ext/rusefi/firmware/controllers/algo/antilag_system.cpp
+    ext/rusefi/firmware/controllers/algo/antilag_system.h
+    ext/rusefi/firmware/controllers/algo/auto_generated_commonenum.cpp
+    ext/rusefi/firmware/controllers/algo/auto_generated_commonenum.h
+    ext/rusefi/firmware/controllers/algo/auto_generated_engine_type_e.cpp
+    ext/rusefi/firmware/controllers/algo/auto_generated_engine_type_e.h
+    ext/rusefi/firmware/controllers/algo/auto_generated_enginetypes.cpp
+    ext/rusefi/firmware/controllers/algo/auto_generated_enginetypes.h
+    ext/rusefi/firmware/controllers/algo/auto_generated_enums.cpp
+    ext/rusefi/firmware/controllers/algo/auto_generated_enums.h
+    ext/rusefi/firmware/controllers/algo/board_types.h
+    ext/rusefi/firmware/controllers/algo/dynoview.cpp
+    ext/rusefi/firmware/controllers/algo/dynoview.h
+    ext/rusefi/firmware/controllers/algo/engine.cpp
+    ext/rusefi/firmware/controllers/algo/engine.h
+    ext/rusefi/firmware/controllers/algo/engine2.cpp
+    ext/rusefi/firmware/controllers/algo/engine_configuration.cpp
+    ext/rusefi/firmware/controllers/algo/engine_configuration.h
+    ext/rusefi/firmware/controllers/algo/engine_configuration_defaults.h
+    ext/rusefi/firmware/controllers/algo/engine_parts.h
+    ext/rusefi/firmware/controllers/algo/engine_state.h
+    ext/rusefi/firmware/controllers/algo/engine_type_e.h
+    ext/rusefi/firmware/controllers/algo/engine_type_impl.cpp
+    ext/rusefi/firmware/controllers/algo/engine_types.h
+    ext/rusefi/firmware/controllers/algo/event_registry.cpp
+    ext/rusefi/firmware/controllers/algo/event_registry.h
+    ext/rusefi/firmware/controllers/algo/firing_order.h
+    ext/rusefi/firmware/controllers/algo/fuel_math.cpp
+    ext/rusefi/firmware/controllers/algo/fuel_math.h
+    ext/rusefi/firmware/controllers/algo/gear_detector.cpp
+    ext/rusefi/firmware/controllers/algo/gear_detector.h
+    ext/rusefi/firmware/controllers/algo/generated_lookup_engine_configuration.h
+    ext/rusefi/firmware/controllers/algo/generated_lookup_meta.h
+    ext/rusefi/firmware/controllers/algo/launch_control.cpp
+    ext/rusefi/firmware/controllers/algo/launch_control.h
+    ext/rusefi/firmware/controllers/algo/nitrous_controller.cpp
+    ext/rusefi/firmware/controllers/algo/nitrous_controller.h
+    ext/rusefi/firmware/controllers/algo/nmea.cpp
+    ext/rusefi/firmware/controllers/algo/nmea.h
+    ext/rusefi/firmware/controllers/algo/obd_error_codes.h
+    ext/rusefi/firmware/controllers/algo/odometer.h
+    ext/rusefi/firmware/controllers/algo/persistent_configuration.h
+    ext/rusefi/firmware/controllers/algo/runtime_state.cpp
+    ext/rusefi/firmware/controllers/algo/runtime_state.h
+    ext/rusefi/firmware/controllers/algo/rusefi_enums.h
+    ext/rusefi/firmware/controllers/algo/rusefi_hw_adc_enums.h
+    ext/rusefi/firmware/controllers/algo/rusefi_hw_enums.h
+    ext/rusefi/firmware/controllers/algo/rusefi_hw_pin_mode.h
+    ext/rusefi/firmware/controllers/algo/rusefi_hw_stm32_enums.h
+    ext/rusefi/firmware/controllers/algo/rusefi_types.h
+    ext/rusefi/firmware/controllers/algo/shift_torque_reduction_controller.cpp
+    ext/rusefi/firmware/controllers/algo/shift_torque_reduction_controller.h
+    ext/rusefi/firmware/controllers/algo/trip_odometer.cpp
+    ext/rusefi/firmware/controllers/algo/trip_odometer.h
+    ext/rusefi/firmware/controllers/algo/wall_fuel.cpp
+    ext/rusefi/firmware/controllers/algo/wall_fuel.h
+    ext/rusefi/firmware/controllers/can/can.h
+    ext/rusefi/firmware/controllers/can/can_bench_test.cpp
+    ext/rusefi/firmware/controllers/can/can_bench_test.h
+    ext/rusefi/firmware/controllers/can/can_bmw.h
+    ext/rusefi/firmware/controllers/can/can_dash.cpp
+    ext/rusefi/firmware/controllers/can/can_dash.h
+    ext/rusefi/firmware/controllers/can/can_dash_ms.cpp
+    ext/rusefi/firmware/controllers/can/can_dash_ms.h
+    ext/rusefi/firmware/controllers/can/can_dash_nissan.cpp
+    ext/rusefi/firmware/controllers/can/can_dash_nissan.h
+    ext/rusefi/firmware/controllers/can/can_listener.h
+    ext/rusefi/firmware/controllers/can/can_mocks.h
+    ext/rusefi/firmware/controllers/can/can_rx.cpp
+    ext/rusefi/firmware/controllers/can/can_rx.h
+    ext/rusefi/firmware/controllers/can/can_tx.cpp
+    ext/rusefi/firmware/controllers/can/can_vag.h
+    ext/rusefi/firmware/controllers/can/can_verbose.cpp
+    ext/rusefi/firmware/controllers/can/can_vss.cpp
+    ext/rusefi/firmware/controllers/can/can_vss.h
+    ext/rusefi/firmware/controllers/can/obd2.cpp
+    ext/rusefi/firmware/controllers/can/obd2.h
+    ext/rusefi/firmware/controllers/can/rusefi_wideband.cpp
+    ext/rusefi/firmware/controllers/can/rusefi_wideband.h
+    ext/rusefi/firmware/controllers/core/big_buffer.cpp
+    ext/rusefi/firmware/controllers/core/big_buffer.h
+    ext/rusefi/firmware/controllers/core/common_headers.h
+    ext/rusefi/firmware/controllers/core/engine_module.h
+    ext/rusefi/firmware/controllers/core/error_handling.cpp
+    ext/rusefi/firmware/controllers/core/error_handling.h
+    ext/rusefi/firmware/controllers/core/error_handling_c.h
+    ext/rusefi/firmware/controllers/core/error_handling_led.h
+    ext/rusefi/firmware/controllers/core/log_hard_fault.h
+    ext/rusefi/firmware/controllers/core/state_sequence.cpp
+    ext/rusefi/firmware/controllers/core/state_sequence.h
+    ext/rusefi/firmware/controllers/engine_cycle/aux_valves.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/aux_valves.h
+    ext/rusefi/firmware/controllers/engine_cycle/fuel_schedule.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/fuel_schedule.h
+    ext/rusefi/firmware/controllers/engine_cycle/high_pressure_fuel_pump.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/high_pressure_fuel_pump.h
+    ext/rusefi/firmware/controllers/engine_cycle/knock_controller.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/knock_logic.h
+    ext/rusefi/firmware/controllers/engine_cycle/main_trigger_callback.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/main_trigger_callback.h
+    ext/rusefi/firmware/controllers/engine_cycle/map_averaging.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/map_averaging.h
+    ext/rusefi/firmware/controllers/engine_cycle/prime_injection.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/prime_injection.h
+    ext/rusefi/firmware/controllers/engine_cycle/rpm_calculator.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/rpm_calculator.h
+    ext/rusefi/firmware/controllers/engine_cycle/rpm_calculator_api.h
+    ext/rusefi/firmware/controllers/engine_cycle/spark_logic.cpp
+    ext/rusefi/firmware/controllers/engine_cycle/spark_logic.h
+    ext/rusefi/firmware/controllers/gauges/malfunction_central.cpp
+    ext/rusefi/firmware/controllers/gauges/malfunction_central.h
+    ext/rusefi/firmware/controllers/gauges/malfunction_indicator.cpp
+    ext/rusefi/firmware/controllers/gauges/malfunction_indicator.h
+    ext/rusefi/firmware/controllers/gauges/speedometer.cpp
+    ext/rusefi/firmware/controllers/gauges/speedometer.h
+    ext/rusefi/firmware/controllers/gauges/tachometer.cpp
+    ext/rusefi/firmware/controllers/gauges/tachometer.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-2chan.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-4chan.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-4chan_f7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-4k-gdi.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-8chan-revA.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-8chan.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-8chan_f7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_alphax-silver.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_at_start_f435.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_atlas.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_f407-discovery.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_f429-discovery.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_f469-discovery.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_frankenso_na6.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_haba208.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen-112-17.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen-gm-e67.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen-honda-k.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen-nb1.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen121nissan.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen121vag.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen128.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen154hyundai.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen154hyundai_f7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen72.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen81.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellen88bmw.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellenNA6.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_hellenNA8_96.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_m74_9.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_mre-legacy_f4.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_mre_f4.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_mre_f7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_nucleo_f413.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_prometheus_405.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_prometheus_469.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_proteus_f4.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_proteus_f7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_proteus_h7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_s105.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_small-can-board.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_stm32f429_nucleo.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_stm32f767_nucleo.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_stm32h743_nucleo.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_subaru_eg33_f7.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_t-b-g.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_tdg-pdm8.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_uaefi.h
+    ext/rusefi/firmware/controllers/generated/engine_configuration_generated_structures_uaefi121.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-2chan.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-4chan.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-4chan_f7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-4k-gdi.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-8chan-revA.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-8chan.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-8chan_f7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_alphax-silver.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_at_start_f435.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_atlas.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_f407-discovery.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_f429-discovery.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_f469-discovery.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_frankenso_na6.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_haba208.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen-112-17.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen-gm-e67.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen-honda-k.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen-nb1.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen121nissan.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen121vag.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen128.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen154hyundai.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen154hyundai_f7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen72.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen81.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellen88bmw.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellenMiataNA6.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellenMiataNA96.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellenMiataNB1.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellenMiataNB2.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellenNA6.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_hellenNA8_96.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_m74_9.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_mre-legacy_f4.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_mre_f4.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_mre_f7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_nucleo_f413.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_nucleo_h743.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_prometheus_405.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_prometheus_469.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_proteus_f4.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_proteus_f7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_proteus_h7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_s105.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_small-can-board.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_stm32f413_nucleo.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_stm32f429_nucleo.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_stm32f767_nucleo.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_stm32h743_nucleo.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_subaru_eg33_f7.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_t-b-g.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_tdg-pdm8.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_uaefi.h
+    ext/rusefi/firmware/controllers/generated/rusefi_generated_uaefi121.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-2chan.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-4chan.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-4chan_f7.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-4k-gdi.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-8chan-revA.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-8chan.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-8chan_f7.h
+    ext/rusefi/firmware/controllers/generated/signature_alphax-silver.h
+    ext/rusefi/firmware/controllers/generated/signature_at_start_f435.h
+    ext/rusefi/firmware/controllers/generated/signature_atlas.h
+    ext/rusefi/firmware/controllers/generated/signature_f407-discovery.h
+    ext/rusefi/firmware/controllers/generated/signature_f429-discovery.h
+    ext/rusefi/firmware/controllers/generated/signature_f469-discovery.h
+    ext/rusefi/firmware/controllers/generated/signature_frankenso_na6.h
+    ext/rusefi/firmware/controllers/generated/signature_haba208.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen-112-17.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen-gm-e67.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen-honda-k.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen-nb1.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen121nissan.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen121vag.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen128.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen154hyundai.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen154hyundai_f7.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen72.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen81.h
+    ext/rusefi/firmware/controllers/generated/signature_hellen88bmw.h
+    ext/rusefi/firmware/controllers/generated/signature_hellenMiataNA6.h
+    ext/rusefi/firmware/controllers/generated/signature_hellenMiataNA96.h
+    ext/rusefi/firmware/controllers/generated/signature_hellenMiataNB1.h
+    ext/rusefi/firmware/controllers/generated/signature_hellenMiataNB2.h
+    ext/rusefi/firmware/controllers/generated/signature_hellenNA6.h
+    ext/rusefi/firmware/controllers/generated/signature_hellenNA8_96.h
+    ext/rusefi/firmware/controllers/generated/signature_m74_9.h
+    ext/rusefi/firmware/controllers/generated/signature_mre-legacy_f4.h
+    ext/rusefi/firmware/controllers/generated/signature_mre_f4.h
+    ext/rusefi/firmware/controllers/generated/signature_mre_f7.h
+    ext/rusefi/firmware/controllers/generated/signature_nucleo_f413.h
+    ext/rusefi/firmware/controllers/generated/signature_nucleo_h743.h
+    ext/rusefi/firmware/controllers/generated/signature_prometheus_405.h
+    ext/rusefi/firmware/controllers/generated/signature_prometheus_469.h
+    ext/rusefi/firmware/controllers/generated/signature_proteus_f4.h
+    ext/rusefi/firmware/controllers/generated/signature_proteus_f7.h
+    ext/rusefi/firmware/controllers/generated/signature_proteus_h7.h
+    ext/rusefi/firmware/controllers/generated/signature_s105.h
+    ext/rusefi/firmware/controllers/generated/signature_small-can-board.h
+    ext/rusefi/firmware/controllers/generated/signature_stm32f413_nucleo.h
+    ext/rusefi/firmware/controllers/generated/signature_stm32f429_nucleo.h
+    ext/rusefi/firmware/controllers/generated/signature_stm32f767_nucleo.h
+    ext/rusefi/firmware/controllers/generated/signature_stm32h743_nucleo.h
+    ext/rusefi/firmware/controllers/generated/signature_subaru_eg33_f7.h
+    ext/rusefi/firmware/controllers/generated/signature_t-b-g.h
+    ext/rusefi/firmware/controllers/generated/signature_tdg-pdm8.h
+    ext/rusefi/firmware/controllers/generated/signature_uaefi.h
+    ext/rusefi/firmware/controllers/generated/signature_uaefi121.h
+    ext/rusefi/firmware/controllers/lua/generated/output_lookup_generated.cpp
+    ext/rusefi/firmware/controllers/lua/generated/value_lookup_generated.cpp
+    ext/rusefi/firmware/controllers/lua/luaaa/example/embedded.cpp
+    ext/rusefi/firmware/controllers/lua/luaaa/example/example.cpp
+    ext/rusefi/firmware/controllers/lua/luaaa/luaaa.hpp
+    ext/rusefi/firmware/controllers/lua/can_filter.cpp
+    ext/rusefi/firmware/controllers/lua/can_filter.h
+    ext/rusefi/firmware/controllers/lua/lua.cpp
+    ext/rusefi/firmware/controllers/lua/lua.hpp
+    ext/rusefi/firmware/controllers/lua/lua_biquad.h
+    ext/rusefi/firmware/controllers/lua/lua_can_rx.cpp
+    ext/rusefi/firmware/controllers/lua/lua_hooks.cpp
+    ext/rusefi/firmware/controllers/lua/lua_hooks.h
+    ext/rusefi/firmware/controllers/lua/lua_hooks_util.cpp
+    ext/rusefi/firmware/controllers/lua/lua_hooks_util.h
+    ext/rusefi/firmware/controllers/lua/lua_lib.h
+    ext/rusefi/firmware/controllers/lua/lua_pid.h
+    ext/rusefi/firmware/controllers/lua/luaconf.h
+    ext/rusefi/firmware/controllers/lua/rusefi_lua.h
+    ext/rusefi/firmware/controllers/lua/script_impl.cpp
+    ext/rusefi/firmware/controllers/lua/script_impl.h
+    ext/rusefi/firmware/controllers/lua/value_lookup.h
+    ext/rusefi/firmware/controllers/lua/value_lookup_stubs.cpp
+    ext/rusefi/firmware/controllers/math/closed_loop_fuel.cpp
+    ext/rusefi/firmware/controllers/math/closed_loop_fuel.h
+    ext/rusefi/firmware/controllers/math/closed_loop_fuel_cell.cpp
+    ext/rusefi/firmware/controllers/math/closed_loop_fuel_cell.h
+    ext/rusefi/firmware/controllers/math/engine_math.cpp
+    ext/rusefi/firmware/controllers/math/engine_math.h
+    ext/rusefi/firmware/controllers/math/firing_order.cpp
+    ext/rusefi/firmware/controllers/math/lambda_monitor.cpp
+    ext/rusefi/firmware/controllers/math/lambda_monitor.h
+    ext/rusefi/firmware/controllers/math/speed_density.cpp
+    ext/rusefi/firmware/controllers/math/speed_density.h
+    ext/rusefi/firmware/controllers/math/throttle_model.cpp
+    ext/rusefi/firmware/controllers/math/throttle_model.h
+    ext/rusefi/firmware/controllers/sensors/converters/flex_sensor.h
+    ext/rusefi/firmware/controllers/sensors/converters/fuel_level_func.cpp
+    ext/rusefi/firmware/controllers/sensors/converters/fuel_level_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/func_chain.h
+    ext/rusefi/firmware/controllers/sensors/converters/identity_func.cpp
+    ext/rusefi/firmware/controllers/sensors/converters/identity_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/input_shaft_speed_converter.h
+    ext/rusefi/firmware/controllers/sensors/converters/linear_func.cpp
+    ext/rusefi/firmware/controllers/sensors/converters/linear_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/resistance_func.cpp
+    ext/rusefi/firmware/controllers/sensors/converters/resistance_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/sensor_converter_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/table_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/thermistor_func.cpp
+    ext/rusefi/firmware/controllers/sensors/converters/thermistor_func.h
+    ext/rusefi/firmware/controllers/sensors/converters/turbocharger_speed_converter.h
+    ext/rusefi/firmware/controllers/sensors/converters/vehicle_speed_converter.h
+    ext/rusefi/firmware/controllers/sensors/core/fallback_sensor.h
+    ext/rusefi/firmware/controllers/sensors/core/fuel_level_sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/core/fuel_level_sensor.h
+    ext/rusefi/firmware/controllers/sensors/core/function_pointer_sensor.h
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor.h
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor_base.cpp
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor_base.h
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor_impl.cpp
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor_impl.h
+    ext/rusefi/firmware/controllers/sensors/core/functional_sensor_impl.hpp
+    ext/rusefi/firmware/controllers/sensors/core/proxy_sensor.h
+    ext/rusefi/firmware/controllers/sensors/core/sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/core/sensor.h
+    ext/rusefi/firmware/controllers/sensors/core/stored_value_sensor.h
+    ext/rusefi/firmware/controllers/sensors/impl/fft/fft.h
+    ext/rusefi/firmware/controllers/sensors/impl/fft/fft.hpp
+    ext/rusefi/firmware/controllers/sensors/impl/AemXSeriesEgt.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/AemXSeriesEgt.h
+    ext/rusefi/firmware/controllers/sensors/impl/AemXSeriesLambda.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/AemXSeriesLambda.h
+    ext/rusefi/firmware/controllers/sensors/impl/ego.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/ego.h
+    ext/rusefi/firmware/controllers/sensors/impl/Lps25Sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/Lps25Sensor.h
+    ext/rusefi/firmware/controllers/sensors/impl/maf.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/maf.h
+    ext/rusefi/firmware/controllers/sensors/impl/map.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/map.h
+    ext/rusefi/firmware/controllers/sensors/impl/software_knock.cpp
+    ext/rusefi/firmware/controllers/sensors/impl/software_knock.h
+    ext/rusefi/firmware/controllers/sensors/allsensors.cpp
+    ext/rusefi/firmware/controllers/sensors/allsensors.h
+    ext/rusefi/firmware/controllers/sensors/auto_generated_sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/auto_generated_sensor.h
+    ext/rusefi/firmware/controllers/sensors/can_sensor.h
+    ext/rusefi/firmware/controllers/sensors/frequency_sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/frequency_sensor.h
+    ext/rusefi/firmware/controllers/sensors/hella_oil_level.cpp
+    ext/rusefi/firmware/controllers/sensors/hella_oil_level.h
+    ext/rusefi/firmware/controllers/sensors/redundant_ford_tps.cpp
+    ext/rusefi/firmware/controllers/sensors/redundant_ford_tps.h
+    ext/rusefi/firmware/controllers/sensors/redundant_sensor.cpp
+    ext/rusefi/firmware/controllers/sensors/redundant_sensor.h
+    ext/rusefi/firmware/controllers/sensors/sensor_checker.cpp
+    ext/rusefi/firmware/controllers/sensors/sensor_checker.h
+    ext/rusefi/firmware/controllers/sensors/sensor_info_printing.cpp
+    ext/rusefi/firmware/controllers/sensors/sensor_reader.h
+    ext/rusefi/firmware/controllers/sensors/sensor_type.h
+    ext/rusefi/firmware/controllers/sensors/thermistors.cpp
+    ext/rusefi/firmware/controllers/sensors/thermistors.h
+    ext/rusefi/firmware/controllers/sensors/tps.cpp
+    ext/rusefi/firmware/controllers/sensors/tps.h
+    ext/rusefi/firmware/controllers/sensors/vr_pwm.cpp
+    ext/rusefi/firmware/controllers/sensors/vr_pwm.h
+    ext/rusefi/firmware/controllers/system/timer/event_queue.cpp
+    ext/rusefi/firmware/controllers/system/timer/event_queue.h
+    ext/rusefi/firmware/controllers/system/timer/pwm_generator_logic.cpp
+    ext/rusefi/firmware/controllers/system/timer/pwm_generator_logic.h
+    ext/rusefi/firmware/controllers/system/timer/scheduler.cpp
+    ext/rusefi/firmware/controllers/system/timer/scheduler.h
+    ext/rusefi/firmware/controllers/system/timer/single_timer_executor.cpp
+    ext/rusefi/firmware/controllers/system/timer/single_timer_executor.h
+    ext/rusefi/firmware/controllers/system/timer/trigger_scheduler.cpp
+    ext/rusefi/firmware/controllers/system/timer/trigger_scheduler.h
+    ext/rusefi/firmware/controllers/system/buffered_writer.h
+    ext/rusefi/firmware/controllers/system/dc_motor.cpp
+    ext/rusefi/firmware/controllers/system/dc_motor.h
+    ext/rusefi/firmware/controllers/system/efi_gpio.cpp
+    ext/rusefi/firmware/controllers/system/efi_gpio.h
+    ext/rusefi/firmware/controllers/system/efi_output.cpp
+    ext/rusefi/firmware/controllers/system/efi_output.h
+    ext/rusefi/firmware/controllers/system/injection_gpio.cpp
+    ext/rusefi/firmware/controllers/system/injection_gpio.h
+    ext/rusefi/firmware/controllers/system/periodic_task.cpp
+    ext/rusefi/firmware/controllers/system/periodic_task.h
+    ext/rusefi/firmware/controllers/system/periodic_thread_controller.h
+    ext/rusefi/firmware/controllers/system/thread_controller.h
+    ext/rusefi/firmware/controllers/tcu/buttonshift.cpp
+    ext/rusefi/firmware/controllers/tcu/buttonshift.h
+    ext/rusefi/firmware/controllers/tcu/gc_auto.cpp
+    ext/rusefi/firmware/controllers/tcu/gc_auto.h
+    ext/rusefi/firmware/controllers/tcu/gc_generic.cpp
+    ext/rusefi/firmware/controllers/tcu/gc_generic.h
+    ext/rusefi/firmware/controllers/tcu/gear_controller.cpp
+    ext/rusefi/firmware/controllers/tcu/gear_controller.h
+    ext/rusefi/firmware/controllers/tcu/simple_tcu.cpp
+    ext/rusefi/firmware/controllers/tcu/simple_tcu.h
+    ext/rusefi/firmware/controllers/tcu/tc_4.cpp
+    ext/rusefi/firmware/controllers/tcu/tc_4.h
+    ext/rusefi/firmware/controllers/tcu/tc_4l6x.cpp
+    ext/rusefi/firmware/controllers/tcu/tc_4l6x.h
+    ext/rusefi/firmware/controllers/tcu/tcu.cpp
+    ext/rusefi/firmware/controllers/tcu/tcu.h
+    ext/rusefi/firmware/controllers/trigger/decoders/auto_generated_sync_edge.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/auto_generated_sync_edge.h
+    ext/rusefi/firmware/controllers/trigger/decoders/sync_edge.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_chrysler.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_chrysler.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_ford.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_ford.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_gm.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_gm.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_honda.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_honda.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_mazda.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_mazda.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_mercedes.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_mercedes.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_misc.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_misc.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_mitsubishi.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_mitsubishi.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_nissan.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_nissan.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_renault.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_renault.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_renix.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_renix.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_rover.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_rover.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_structure.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_structure.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_subaru.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_subaru.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_suzuki.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_suzuki.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_toyota.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_toyota.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_universal.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_universal.h
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_vw.cpp
+    ext/rusefi/firmware/controllers/trigger/decoders/trigger_vw.h
+    ext/rusefi/firmware/controllers/trigger/instant_rpm_calculator.cpp
+    ext/rusefi/firmware/controllers/trigger/instant_rpm_calculator.h
+    ext/rusefi/firmware/controllers/trigger/trigger_central.cpp
+    ext/rusefi/firmware/controllers/trigger/trigger_central.h
+    ext/rusefi/firmware/controllers/trigger/trigger_decoder.cpp
+    ext/rusefi/firmware/controllers/trigger/trigger_decoder.h
+    ext/rusefi/firmware/controllers/trigger/trigger_emulator_algo.cpp
+    ext/rusefi/firmware/controllers/trigger/trigger_emulator_algo.h
+    ext/rusefi/firmware/controllers/trigger/trigger_simulator.cpp
+    ext/rusefi/firmware/controllers/trigger/trigger_simulator.h
+    ext/rusefi/firmware/controllers/bench_test.cpp
+    ext/rusefi/firmware/controllers/bench_test.h
+    ext/rusefi/firmware/controllers/closed_loop_controller.h
+    ext/rusefi/firmware/controllers/date_stamp.h
+    ext/rusefi/firmware/controllers/engine_controller.cpp
+    ext/rusefi/firmware/controllers/engine_controller.h
+    ext/rusefi/firmware/controllers/engine_controller_misc.cpp
+    ext/rusefi/firmware/controllers/flash_main.cpp
+    ext/rusefi/firmware/controllers/flash_main.h
+    ext/rusefi/firmware/controllers/global_shared.h
+    ext/rusefi/firmware/controllers/hysteresis.cpp
+    ext/rusefi/firmware/controllers/hysteresis.h
+    ext/rusefi/firmware/controllers/ignition_controller.cpp
+    ext/rusefi/firmware/controllers/ignition_controller.h
+    ext/rusefi/firmware/controllers/limp_manager.cpp
+    ext/rusefi/firmware/controllers/limp_manager.h
+    ext/rusefi/firmware/controllers/long_term_fuel_trim.cpp
+    ext/rusefi/firmware/controllers/long_term_fuel_trim.h
+    ext/rusefi/firmware/controllers/max_limit_with_hysteresis.cpp
+    ext/rusefi/firmware/controllers/max_limit_with_hysteresis.h
+    ext/rusefi/firmware/controllers/mfs_storage.cpp
+    ext/rusefi/firmware/controllers/mfs_storage.h
+    ext/rusefi/firmware/controllers/persistent_store.cpp
+    ext/rusefi/firmware/controllers/settings.cpp
+    ext/rusefi/firmware/controllers/settings.h
+    ext/rusefi/firmware/controllers/shutdown_controller.cpp
+    ext/rusefi/firmware/controllers/shutdown_controller.h
+    ext/rusefi/firmware/controllers/start_stop.cpp
+    ext/rusefi/firmware/controllers/start_stop.h
+    ext/rusefi/firmware/controllers/storage.cpp
+    ext/rusefi/firmware/controllers/storage.h
+    ext/rusefi/firmware/controllers/thread_priority.h
+    ext/rusefi/firmware/development/hw_layer/poten.cpp
+    ext/rusefi/firmware/development/hw_layer/poten.h
+    ext/rusefi/firmware/development/test/test.c
+    ext/rusefi/firmware/development/test/test.h
+    ext/rusefi/firmware/development/test/testbmk.c
+    ext/rusefi/firmware/development/test/testbmk.h
+    ext/rusefi/firmware/development/engine_emulator.cpp
+    ext/rusefi/firmware/development/engine_emulator.h
+    ext/rusefi/firmware/development/engine_sniffer.cpp
+    ext/rusefi/firmware/development/engine_sniffer.h
+    ext/rusefi/firmware/development/logic_analyzer.cpp
+    ext/rusefi/firmware/development/logic_analyzer.h
+    ext/rusefi/firmware/development/perf_trace.cpp
+    ext/rusefi/firmware/development/perf_trace.h
+    ext/rusefi/firmware/development/rfi_perftest.cpp
+    ext/rusefi/firmware/development/rfi_perftest.h
+    ext/rusefi/firmware/development/sensor_chart.cpp
+    ext/rusefi/firmware/development/sensor_chart.h
+    ext/rusefi/firmware/ext_algo/utlist.h
+    ext/rusefi/firmware/hw_layer/adc/adc_external.h
+    ext/rusefi/firmware/hw_layer/adc/adc_inputs.cpp
+    ext/rusefi/firmware/hw_layer/adc/adc_inputs.h
+    ext/rusefi/firmware/hw_layer/adc/adc_inputs_onchip.cpp
+    ext/rusefi/firmware/hw_layer/adc/adc_subscription.cpp
+    ext/rusefi/firmware/hw_layer/adc/adc_subscription.h
+    ext/rusefi/firmware/hw_layer/adc/AdcDevice.h
+    ext/rusefi/firmware/hw_layer/adc/ads1015.cpp
+    ext/rusefi/firmware/hw_layer/adc/ads1015.h
+    ext/rusefi/firmware/hw_layer/adc/mcp3208.cpp
+    ext/rusefi/firmware/hw_layer/adc/mcp3208.h
+    ext/rusefi/firmware/hw_layer/algo/adc_math.h
+    ext/rusefi/firmware/hw_layer/atwinc1500/compiler.h
+    ext/rusefi/firmware/hw_layer/atwinc1500/wifi_bsp.cpp
+    ext/rusefi/firmware/hw_layer/digital_input/trigger/trigger_input.cpp
+    ext/rusefi/firmware/hw_layer/digital_input/trigger/trigger_input.h
+    ext/rusefi/firmware/hw_layer/digital_input/trigger/trigger_input_adc.cpp
+    ext/rusefi/firmware/hw_layer/digital_input/trigger/trigger_input_adc.h
+    ext/rusefi/firmware/hw_layer/digital_input/trigger/trigger_input_comp.cpp
+    ext/rusefi/firmware/hw_layer/digital_input/trigger/trigger_input_exti.cpp
+    ext/rusefi/firmware/hw_layer/digital_input/digital_input_exti.cpp
+    ext/rusefi/firmware/hw_layer/digital_input/digital_input_exti.h
+    ext/rusefi/firmware/hw_layer/drivers/can/auto_generated_can_category.cpp
+    ext/rusefi/firmware/hw_layer/drivers/can/auto_generated_can_category.h
+    ext/rusefi/firmware/hw_layer/drivers/can/can_category.h
+    ext/rusefi/firmware/hw_layer/drivers/can/can_hw.cpp
+    ext/rusefi/firmware/hw_layer/drivers/can/can_hw.h
+    ext/rusefi/firmware/hw_layer/drivers/can/can_msg_tx.cpp
+    ext/rusefi/firmware/hw_layer/drivers/can/can_msg_tx.h
+    ext/rusefi/firmware/hw_layer/drivers/flash/sst26f/hal_flash_device.c
+    ext/rusefi/firmware/hw_layer/drivers/flash/sst26f/hal_flash_device.h
+    ext/rusefi/firmware/hw_layer/drivers/flash/w25q/hal_flash_device.c
+    ext/rusefi/firmware/hw_layer/drivers/flash/w25q/hal_flash_device.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/can_gpio_msiobox.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/can_gpio_msiobox.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/core.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/drv8860.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/drv8860.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/gpio_ext.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/l9779.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/l9779.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/mc33810.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/mc33810.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/mc33972.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/mc33972.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/protected_gpio.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/protected_gpio.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle6240.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle6240.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle8888.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle8888.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle9104.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle9104.h
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle9201.cpp
+    ext/rusefi/firmware/hw_layer/drivers/gpio/tle9201.h
+    ext/rusefi/firmware/hw_layer/drivers/i2c/i2c_bb.cpp
+    ext/rusefi/firmware/hw_layer/drivers/i2c/i2c_bb.h
+    ext/rusefi/firmware/hw_layer/drivers/led/WS2812.cpp
+    ext/rusefi/firmware/hw_layer/drivers/led/WS2812.h
+    ext/rusefi/firmware/hw_layer/drivers/led/ws2812_conf.h
+    ext/rusefi/firmware/hw_layer/drivers/sent/sent.cpp
+    ext/rusefi/firmware/hw_layer/drivers/sent/sent.h
+    ext/rusefi/firmware/hw_layer/drivers/sent/sent_hw_icu.cpp
+    ext/rusefi/firmware/hw_layer/drivers/sent/sent_hw_icu.h
+    ext/rusefi/firmware/hw_layer/drivers/dac.cpp
+    ext/rusefi/firmware/hw_layer/drivers/dac.h
+    ext/rusefi/firmware/hw_layer/mass_storage/compressed_block_device.cpp
+    ext/rusefi/firmware/hw_layer/mass_storage/compressed_block_device.h
+    ext/rusefi/firmware/hw_layer/mass_storage/mass_storage_device.cpp
+    ext/rusefi/firmware/hw_layer/mass_storage/mass_storage_device.h
+    ext/rusefi/firmware/hw_layer/mass_storage/mass_storage_init.cpp
+    ext/rusefi/firmware/hw_layer/mass_storage/mass_storage_init.h
+    ext/rusefi/firmware/hw_layer/mass_storage/null_device.cpp
+    ext/rusefi/firmware/hw_layer/mass_storage/null_device.h
+    ext/rusefi/firmware/hw_layer/mass_storage/ramdisk_image.h
+    ext/rusefi/firmware/hw_layer/mass_storage/ramdisk_image_compressed.h
+    ext/rusefi/firmware/hw_layer/microsecond_timer/microsecond_timer.cpp
+    ext/rusefi/firmware/hw_layer/microsecond_timer/microsecond_timer.h
+    ext/rusefi/firmware/hw_layer/microsecond_timer/microsecond_timer_gpt.cpp
+    ext/rusefi/firmware/hw_layer/microsecond_timer/port_microsecond_timer.h
+    ext/rusefi/firmware/hw_layer/openblt/blt_conf.h
+    ext/rusefi/firmware/hw_layer/openblt/efi_blt_ids.h
+    ext/rusefi/firmware/hw_layer/openblt/hooks.c
+    ext/rusefi/firmware/hw_layer/openblt/led.c
+    ext/rusefi/firmware/hw_layer/openblt/led.h
+    ext/rusefi/firmware/hw_layer/openblt/shared_params.c
+    ext/rusefi/firmware/hw_layer/openblt/shared_params.h
+    ext/rusefi/firmware/hw_layer/openblt/usbd_bulk.c
+    ext/rusefi/firmware/hw_layer/openblt/usbd_bulk.h
+    ext/rusefi/firmware/hw_layer/openblt/usbd_conf.c
+    ext/rusefi/firmware/hw_layer/openblt/usbd_conf.h
+    ext/rusefi/firmware/hw_layer/openblt/usbd_core.h
+    ext/rusefi/firmware/hw_layer/openblt/usbd_desc.c
+    ext/rusefi/firmware/hw_layer/openblt/usbd_desc.h
+    ext/rusefi/firmware/hw_layer/ports/at32/at32f4/cfg/chconf.h
+    ext/rusefi/firmware/hw_layer/ports/at32/at32f4/cfg/halconf.h
+    ext/rusefi/firmware/hw_layer/ports/at32/at32f4/cfg/mcuconf.h
+    ext/rusefi/firmware/hw_layer/ports/at32/at32f4/mpu_util.cpp
+    ext/rusefi/firmware/hw_layer/ports/at32/cfg/halconf_community.h
+    ext/rusefi/firmware/hw_layer/ports/at32/at32_can.cpp
+    ext/rusefi/firmware/hw_layer/ports/at32/at32_common.cpp
+    ext/rusefi/firmware/hw_layer/ports/at32/at32_spi.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbconfig.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbconfig.h
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbconsole.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbconsole.h
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbdescriptors.h
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbdevicehw.h
+    ext/rusefi/firmware/hw_layer/ports/cypress/serial_over_usb/usbhosthw.h
+    ext/rusefi/firmware/hw_layer/ports/cypress/backup_ram.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/cypress_common.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/cypress_pins.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/flash_int.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/global_port.h
+    ext/rusefi/firmware/hw_layer/ports/cypress/mpu_util.cpp
+    ext/rusefi/firmware/hw_layer/ports/cypress/port_mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/kinetis/backup_ram.cpp
+    ext/rusefi/firmware/hw_layer/ports/kinetis/flash_int.cpp
+    ext/rusefi/firmware/hw_layer/ports/kinetis/global_port.h
+    ext/rusefi/firmware/hw_layer/ports/kinetis/kinetis_common.cpp
+    ext/rusefi/firmware/hw_layer/ports/kinetis/kinetis_pins.cpp
+    ext/rusefi/firmware/hw_layer/ports/kinetis/mpu_util.cpp
+    ext/rusefi/firmware/hw_layer/ports/kinetis/port_mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/cfg/chconf_stm32.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/cfg/halconf_community.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/serial_over_usb/usbcfg.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/serial_over_usb/usbcfg.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/serial_over_usb/usbconsole.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/serial_over_usb/usbconsole.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/cfg/chconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/cfg/halconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/cfg/mcuconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/openblt/lib/stm32f4xx_hal_conf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/openblt/lib/system_stm32f4xx.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/board.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/device_mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/dfu_init.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/global_port.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/mpu_util.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/stm32f4xx_hal_def.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/stm32f4xx_hal_flash.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/stm32f4xx_hal_flash.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/stm32f4xx_hal_flash_ex.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/stm32f4xx_hal_flash_ex.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f4/stm32f4xx_hal_flash_ramfunc.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/cfg/chconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/cfg/halconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/cfg/mcuconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/openblt/lib/stm32f7xx_hal_conf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/openblt/lib/system_stm32f7xx.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/board.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/device_mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/dfu_init.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/global_port.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/mpu_util.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/stm32f7xx_hal_def.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/stm32f7xx_hal_flash.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/stm32f7xx_hal_flash.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/stm32f7xx_hal_flash_ex.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/stm32f7xx_hal_flash_ex.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32f7/stm32f7xx_rtc.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/cfg/chconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/cfg/halconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/cfg/mcuconf.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/board.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/device_mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/dfu_init.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/global_port.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/mpu_util.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/stm32h7xx_hal_def.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/stm32h7xx_hal_flash.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/stm32h7xx_hal_flash.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/stm32h7xx_hal_flash_ex.c
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32h7/stm32h7xx_hal_flash_ex.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/backup_ram.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/flash_int.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/mcuconf_common_f4_f7.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/microsecond_timer_stm32.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/osc_detector.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/port_mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_adc.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_adc_v2.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_adc_v4.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_can.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_common.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_icu.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_pins.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_pwm.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_reset_cause.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_serial.cpp
+    ext/rusefi/firmware/hw_layer/ports/stm32/stm32_spi.cpp
+    ext/rusefi/firmware/hw_layer/ports/arm_common.cpp
+    ext/rusefi/firmware/hw_layer/ports/chconf_common.h
+    ext/rusefi/firmware/hw_layer/ports/mpu_util.h
+    ext/rusefi/firmware/hw_layer/ports/mpu_watchdog.h
+    ext/rusefi/firmware/hw_layer/ports/rusefi_halconf.h
+    ext/rusefi/firmware/hw_layer/sensors/accelerometer.cpp
+    ext/rusefi/firmware/hw_layer/sensors/accelerometer.h
+    ext/rusefi/firmware/hw_layer/sensors/gps_uart.cpp
+    ext/rusefi/firmware/hw_layer/sensors/gps_uart.h
+    ext/rusefi/firmware/hw_layer/sensors/hip9011.cpp
+    ext/rusefi/firmware/hw_layer/sensors/hip9011.h
+    ext/rusefi/firmware/hw_layer/sensors/hip9011_logic.cpp
+    ext/rusefi/firmware/hw_layer/sensors/hip9011_logic.h
+    ext/rusefi/firmware/hw_layer/sensors/lps25.cpp
+    ext/rusefi/firmware/hw_layer/sensors/lps25.h
+    ext/rusefi/firmware/hw_layer/sensors/max3185x.cpp
+    ext/rusefi/firmware/hw_layer/sensors/max3185x.h
+    ext/rusefi/firmware/hw_layer/sensors/yaw_rate_sensor.cpp
+    ext/rusefi/firmware/hw_layer/sensors/yaw_rate_sensor.h
+    ext/rusefi/firmware/hw_layer/backup_ram.h
+    ext/rusefi/firmware/hw_layer/cdm_ion_sense.cpp
+    ext/rusefi/firmware/hw_layer/cdm_ion_sense.h
+    ext/rusefi/firmware/hw_layer/debounce.cpp
+    ext/rusefi/firmware/hw_layer/debounce.h
+    ext/rusefi/firmware/hw_layer/flash_int.h
+    ext/rusefi/firmware/hw_layer/hardware.cpp
+    ext/rusefi/firmware/hw_layer/hardware.h
+    ext/rusefi/firmware/hw_layer/io_pins.cpp
+    ext/rusefi/firmware/hw_layer/io_pins.h
+    ext/rusefi/firmware/hw_layer/kline.cpp
+    ext/rusefi/firmware/hw_layer/kline.h
+    ext/rusefi/firmware/hw_layer/main_hardfault.c
+    ext/rusefi/firmware/hw_layer/mc33816.cpp
+    ext/rusefi/firmware/hw_layer/mc33816.h
+    ext/rusefi/firmware/hw_layer/mmc_card.cpp
+    ext/rusefi/firmware/hw_layer/mmc_card.h
+    ext/rusefi/firmware/hw_layer/pin_repository.cpp
+    ext/rusefi/firmware/hw_layer/pin_repository.h
+    ext/rusefi/firmware/hw_layer/plain_pin_repository.h
+    ext/rusefi/firmware/hw_layer/rtc_helper.cpp
+    ext/rusefi/firmware/hw_layer/rtc_helper.h
+    ext/rusefi/firmware/hw_layer/smart_gpio.cpp
+    ext/rusefi/firmware/hw_layer/smart_gpio.h
+    ext/rusefi/firmware/hw_layer/stepper.cpp
+    ext/rusefi/firmware/hw_layer/stepper.h
+    ext/rusefi/firmware/hw_layer/stepper_dual_hbridge.cpp
+    ext/rusefi/firmware/init/sensor/init_aux.cpp
+    ext/rusefi/firmware/init/sensor/init_aux_speed_sensor.cpp
+    ext/rusefi/firmware/init/sensor/init_baro.cpp
+    ext/rusefi/firmware/init/sensor/init_can_sensors.cpp
+    ext/rusefi/firmware/init/sensor/init_egt.cpp
+    ext/rusefi/firmware/init/sensor/init_flex.cpp
+    ext/rusefi/firmware/init/sensor/init_fluid_pressure.cpp
+    ext/rusefi/firmware/init/sensor/init_fuel_level.cpp
+    ext/rusefi/firmware/init/sensor/init_input_shaft_speed_sensor.cpp
+    ext/rusefi/firmware/init/sensor/init_lambda.cpp
+    ext/rusefi/firmware/init/sensor/init_maf.cpp
+    ext/rusefi/firmware/init/sensor/init_map.cpp
+    ext/rusefi/firmware/init/sensor/init_range.cpp
+    ext/rusefi/firmware/init/sensor/init_sensors.cpp
+    ext/rusefi/firmware/init/sensor/init_thermistors.cpp
+    ext/rusefi/firmware/init/sensor/init_tps.cpp
+    ext/rusefi/firmware/init/sensor/init_turbocharger_speed_sensor.cpp
+    ext/rusefi/firmware/init/sensor/init_vbatt.cpp
+    ext/rusefi/firmware/init/sensor/init_vehicle_speed_sensor.cpp
+    ext/rusefi/firmware/init/init.h
+    ext/rusefi/firmware/libfirmware/board_id/boards_dictionary.h
+    ext/rusefi/firmware/libfirmware/board_id/boards_id.h
+    ext/rusefi/firmware/libfirmware/board_id/qc_stim_meta.h
+    ext/rusefi/firmware/libfirmware/can/can_common.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/custom/gmock-generated-actions.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/custom/gmock-matchers.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/custom/gmock-port.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/gmock-internal-utils.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/gmock-port.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/internal/gmock-pp.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-actions.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-cardinalities.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-function-mocker.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-matchers.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-more-actions.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-more-matchers.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-nice-strict.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock-spec-builders.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/include/gmock/gmock.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock-all.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock-cardinalities.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock-internal-utils.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock-matchers.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock-spec-builders.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/src/gmock_main.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-actions_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-cardinalities_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-function-mocker_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-internal-utils_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-matchers-arithmetic_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-matchers-comparisons_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-matchers-containers_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-matchers-misc_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-matchers_test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-more-actions_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-nice-strict_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-port_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-pp-string_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-pp_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock-spec-builders_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_all_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_ex_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_leak_test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_link2_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_link_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_link_test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_output_test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_stress_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googlemock/test/gmock_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/custom/gtest-port.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/custom/gtest-printers.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/custom/gtest.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-death-test-internal.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-filepath.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-internal.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-param-util.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-port-arch.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-port.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-string.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/internal/gtest-type-util.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-assertion-result.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-death-test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-matchers.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-message.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-param-test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-printers.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-spi.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-test-part.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest-typed-test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest_pred_impl.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/include/gtest/gtest_prod.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/prime_tables.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample1.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample1.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample10_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample1_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample2.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample2.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample2_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample3-inl.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample3_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample4.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample4.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample4_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample5_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample6_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample7_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample8_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/samples/sample9_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-all.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-assertion-result.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-death-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-filepath.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-internal-inl.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-matchers.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-port.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-printers.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-test-part.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest-typed-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/src/gtest_main.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-break-on-failure-unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-catch-exceptions-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-color-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-death-test-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-death-test_ex_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-env-var-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-failfast-unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-filepath-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-filter-unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-global-environment-unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-list-tests-unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-listener-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-message-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-options-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-output-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-param-test-invalid-name1-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-param-test-invalid-name2-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-param-test-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-param-test-test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-param-test2-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-port-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-printers-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-setuptestsuite-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-shuffle-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-test-part-test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-throw-on-failure-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/googletest-uninitialized-test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest-typed-test2_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest-typed-test_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest-typed-test_test.h
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest-unittest-api_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_all_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_assert_by_exception_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_environment_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_help_test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_list_output_unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_main_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_no_test_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_pred_impl_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_premature_exit_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_prod_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_repeat_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_skip_in_environment_setup_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_skip_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_sole_header_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_stress_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_test_macro_stack_footprint_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_testbridge_test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_throw_on_failure_ex_test.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_unittest.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_xml_outfile1_test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_xml_outfile2_test_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/gtest_xml_output_unittest_.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/production.cc
+    ext/rusefi/firmware/libfirmware/ext/googletest/googletest/test/production.h
+    ext/rusefi/firmware/libfirmware/mock/global.h
+    ext/rusefi/firmware/libfirmware/mock/lib-time-mocks.cpp
+    ext/rusefi/firmware/libfirmware/pt2001/include/rusefi/pt2001.h
+    ext/rusefi/firmware/libfirmware/pt2001/include/rusefi/pt2001_memory_map.h
+    ext/rusefi/firmware/libfirmware/pt2001/project/rusefi/sample_code/PT2001_dram.h
+    ext/rusefi/firmware/libfirmware/pt2001/project/rusefi/sample_code/PT2001_LoadData.c
+    ext/rusefi/firmware/libfirmware/pt2001/project/rusefi/sample_code/PT2001_LoadData.h
+    ext/rusefi/firmware/libfirmware/pt2001/src/pt2001.cpp
+    ext/rusefi/firmware/libfirmware/sent/include/sent_decoder.h
+    ext/rusefi/firmware/libfirmware/sent/include/sent_gm_fuel_sensor.h
+    ext/rusefi/firmware/libfirmware/sent/src/sent_decoder.cpp
+    ext/rusefi/firmware/libfirmware/stm32-util/mcu-util.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/containers/cyclic_buffer.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/containers/fifo_buffer.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/arrays.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/crc.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/critical_error.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/efistringutil.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/endian.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/expected.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/fragments.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/interpolation.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/manifest.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/math.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/rusefi_time_math.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/rusefi_time_types.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/rusefi_time_wraparound.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/scaled_channel.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/timer.h
+    ext/rusefi/firmware/libfirmware/util/include/rusefi/true_false.h
+    ext/rusefi/firmware/libfirmware/util/src/crc.cpp
+    ext/rusefi/firmware/libfirmware/util/src/efistringutil.cpp
+    ext/rusefi/firmware/libfirmware/util/src/fragments.cpp
+    ext/rusefi/firmware/libfirmware/util/src/math.cpp
+    ext/rusefi/firmware/libfirmware/util/src/timer.cpp
+    ext/rusefi/firmware/libfirmware/util/src/util_dummy.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_arrays.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_crc.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_cyclic_buffer.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_efistringutil.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_fragments.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_interpolation.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_manifest.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_math.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_scaled.cpp
+    ext/rusefi/firmware/libfirmware/util/test/test_wraparound.cpp
+    ext/rusefi/firmware/libfirmware/gmock-all.cpp
+    ext/rusefi/firmware/libfirmware/gtest-all.cpp
+    ext/rusefi/firmware/libfirmware/gtest_main.cpp
+    ext/rusefi/firmware/live_data_generated/ac_control_generated.h
+    ext/rusefi/firmware/live_data_generated/antilag_system_state_generated.h
+    ext/rusefi/firmware/live_data_generated/boost_control_generated.h
+    ext/rusefi/firmware/live_data_generated/dc_motors_generated.h
+    ext/rusefi/firmware/live_data_generated/electronic_throttle_generated.h
+    ext/rusefi/firmware/live_data_generated/engine_state_generated.h
+    ext/rusefi/firmware/live_data_generated/fan_control_generated.h
+    ext/rusefi/firmware/live_data_generated/fuel_computer_generated.h
+    ext/rusefi/firmware/live_data_generated/fuel_pump_control_generated.h
+    ext/rusefi/firmware/live_data_generated/high_pressure_fuel_pump_generated.h
+    ext/rusefi/firmware/live_data_generated/idle_state_generated.h
+    ext/rusefi/firmware/live_data_generated/ignition_state_generated.h
+    ext/rusefi/firmware/live_data_generated/injector_model_generated.h
+    ext/rusefi/firmware/live_data_generated/knock_controller_generated.h
+    ext/rusefi/firmware/live_data_generated/lambda_monitor_generated.h
+    ext/rusefi/firmware/live_data_generated/launch_control_state_generated.h
+    ext/rusefi/firmware/live_data_generated/main_relay_generated.h
+    ext/rusefi/firmware/live_data_generated/nitrous_control_state_generated.h
+    ext/rusefi/firmware/live_data_generated/output_channels_generated.h
+    ext/rusefi/firmware/live_data_generated/pid_state_generated.h
+    ext/rusefi/firmware/live_data_generated/prime_injection_generated.h
+    ext/rusefi/firmware/live_data_generated/sent_state_generated.h
+    ext/rusefi/firmware/live_data_generated/shift_torque_reduction_state_generated.h
+    ext/rusefi/firmware/live_data_generated/tcu_controller_generated.h
+    ext/rusefi/firmware/live_data_generated/throttle_model_generated.h
+    ext/rusefi/firmware/live_data_generated/tps_accel_state_generated.h
+    ext/rusefi/firmware/live_data_generated/trigger_central_generated.h
+    ext/rusefi/firmware/live_data_generated/trigger_state_generated.h
+    ext/rusefi/firmware/live_data_generated/trigger_state_primary_generated.h
+    ext/rusefi/firmware/live_data_generated/vvt_generated.h
+    ext/rusefi/firmware/live_data_generated/wall_fuel_state_generated.h
+    ext/rusefi/firmware/live_data_generated/wideband_state_generated.h
+    ext/rusefi/firmware/pch/pch.h
+    ext/rusefi/firmware/util/containers/fl_stack.h
+    ext/rusefi/firmware/util/containers/listener_array.cpp
+    ext/rusefi/firmware/util/containers/listener_array.h
+    ext/rusefi/firmware/util/containers/local_version_holder.cpp
+    ext/rusefi/firmware/util/containers/local_version_holder.h
+    ext/rusefi/firmware/util/containers/Map2D.h
+    ext/rusefi/firmware/util/containers/static_vector.h
+    ext/rusefi/firmware/util/containers/table_helper.h
+    ext/rusefi/firmware/util/containers/type_list.h
+    ext/rusefi/firmware/util/math/biquad.cpp
+    ext/rusefi/firmware/util/math/biquad.h
+    ext/rusefi/firmware/util/math/crc8hondak.cpp
+    ext/rusefi/firmware/util/math/crc8hondak.h
+    ext/rusefi/firmware/util/math/deadband.h
+    ext/rusefi/firmware/util/math/efi_interpolation.h
+    ext/rusefi/firmware/util/math/efi_pid.cpp
+    ext/rusefi/firmware/util/math/efi_pid.h
+    ext/rusefi/firmware/util/math/efi_ratio.h
+    ext/rusefi/firmware/util/math/error_accumulator.cpp
+    ext/rusefi/firmware/util/math/error_accumulator.h
+    ext/rusefi/firmware/util/math/exp_average.h
+    ext/rusefi/firmware/util/math/interpolation.cpp
+    ext/rusefi/firmware/util/cli_registry.cpp
+    ext/rusefi/firmware/util/cli_registry.h
+    ext/rusefi/firmware/util/datalogging.cpp
+    ext/rusefi/firmware/util/datalogging.h
+    ext/rusefi/firmware/util/efi_quote.h
+    ext/rusefi/firmware/util/efi_scaled_channel.h
+    ext/rusefi/firmware/util/efilib.cpp
+    ext/rusefi/firmware/util/efilib.h
+    ext/rusefi/firmware/util/efiprintf.h
+    ext/rusefi/firmware/util/efitime.cpp
+    ext/rusefi/firmware/util/efitime.h
+    ext/rusefi/firmware/util/histogram.cpp
+    ext/rusefi/firmware/util/histogram.h
+    ext/rusefi/firmware/util/loggingcentral.cpp
+    ext/rusefi/firmware/util/loggingcentral.h
+    ext/rusefi/firmware/util/os_util.cpp
+    ext/rusefi/firmware/util/os_util.h
+    ext/rusefi/firmware/util/peak_detect.h
+    ext/rusefi/firmware/util/tinymt32.c
+    ext/rusefi/firmware/util/tinymt32.h
+    ext/rusefi/firmware/util/unused.h
+    ext/rusefi/firmware/configuration_check.cpp
+    ext/rusefi/firmware/gcc_version_check.c
+    ext/rusefi/firmware/global.h
+    ext/rusefi/firmware/kill_for_coverity.c
+    ext/rusefi/firmware/main.cpp
+    ext/rusefi/firmware/rusefi.cpp
+    ext/rusefi/firmware/rusefi.h
+    firmware/pinouts.cpp
+    generated/console/binary/generated/live_data_fragments.h
+    generated/console/binary/generated/live_data_ids.h
+    generated/console/binary/generated/total_live_data_generated.h
+    generated/console/binary/output_channels_generated.h
+    generated/console/binary_log/log_fields_generated.h
+    generated/controllers/actuators/ac_control_generated.h
+    generated/controllers/actuators/boost_control_generated.h
+    generated/controllers/actuators/dc_motors_generated.h
+    generated/controllers/actuators/electronic_throttle_generated.h
+    generated/controllers/actuators/fan_control_generated.h
+    generated/controllers/actuators/fuel_pump_control_generated.h
+    generated/controllers/actuators/idle_state_generated.h
+    generated/controllers/actuators/main_relay_generated.h
+    generated/controllers/actuators/vvt_generated.h
+    generated/controllers/algo/fuel/fuel_computer_generated.h
+    generated/controllers/algo/fuel/injector_model_generated.h
+    generated/controllers/algo/antilag_system_state_generated.h
+    generated/controllers/algo/engine_state_generated.h
+    generated/controllers/algo/ignition_state_generated.h
+    generated/controllers/algo/launch_control_state_generated.h
+    generated/controllers/algo/tps_accel_state_generated.h
+    generated/controllers/algo/wall_fuel_state_generated.h
+    generated/controllers/engine_cycle/high_pressure_fuel_pump_generated.h
+    generated/controllers/engine_cycle/knock_controller_generated.h
+    generated/controllers/generated/engine_configuration_generated_structures_mega100.h
+    generated/controllers/generated/rusefi_generated_mega100.h
+    generated/controllers/generated/signature_mega100.h
+    generated/controllers/math/lambda_monitor_generated.h
+    generated/controllers/math/throttle_model_generated.h
+    generated/controllers/sensors/sent_state_generated.h
+    generated/controllers/sensors/wideband_state_generated.h
+    generated/controllers/tcu/tcu_controller_generated.h
+    generated/controllers/trigger/trigger_central_generated.h
+    generated/controllers/trigger/trigger_state_generated.h
+    generated/controllers/trigger/trigger_state_primary_generated.h
+    generated/live_data_generated/ac_control_generated.h
+    generated/live_data_generated/antilag_system_state_generated.h
+    generated/live_data_generated/boost_control_generated.h
+    generated/live_data_generated/dc_motors_generated.h
+    generated/live_data_generated/electronic_throttle_generated.h
+    generated/live_data_generated/engine_state_generated.h
+    generated/live_data_generated/fan_control_generated.h
+    generated/live_data_generated/fuel_computer_generated.h
+    generated/live_data_generated/fuel_pump_control_generated.h
+    generated/live_data_generated/high_pressure_fuel_pump_generated.h
+    generated/live_data_generated/idle_state_generated.h
+    generated/live_data_generated/ignition_state_generated.h
+    generated/live_data_generated/injector_model_generated.h
+    generated/live_data_generated/knock_controller_generated.h
+    generated/live_data_generated/lambda_monitor_generated.h
+    generated/live_data_generated/launch_control_state_generated.h
+    generated/live_data_generated/main_relay_generated.h
+    generated/live_data_generated/nitrous_control_state_generated.h
+    generated/live_data_generated/output_channels_generated.h
+    generated/live_data_generated/prime_injection_generated.h
+    generated/live_data_generated/sent_state_generated.h
+    generated/live_data_generated/shift_torque_reduction_state_generated.h
+    generated/live_data_generated/tcu_controller_generated.h
+    generated/live_data_generated/throttle_model_generated.h
+    generated/live_data_generated/tps_accel_state_generated.h
+    generated/live_data_generated/trigger_central_generated.h
+    generated/live_data_generated/trigger_state_generated.h
+    generated/live_data_generated/trigger_state_primary_generated.h
+    generated/live_data_generated/vvt_generated.h
+    generated/live_data_generated/wall_fuel_state_generated.h
+    generated/live_data_generated/wideband_state_generated.h
+    board_configuration.cpp
+    default_tune.cpp
+    knock_config.h)
